@@ -1,5 +1,5 @@
 import { UserModel } from "../../DB/models/index.js";
-import { connection } from "../../DB/database.connection.js";
+// import { connection } from "../../DB/database.connection.js";
 
 export const signup = async (input) => {
   const { email, password, username, dob } = input;

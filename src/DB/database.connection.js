@@ -1,4 +1,4 @@
-import mysql2 from "mysql2/promise";
+import { Sequelize } from "sequelize";
 import {
   DB_HOST,
   DB_NAME,
@@ -7,16 +7,18 @@ import {
   DB_USER,
 } from "../../config/config.service.js";
 
-export const connection = async () => {
-  return await mysql2
-    .createConnection({
-      host: DB_HOST,
-      user: DB_USER,
-      password: DB_PASSWORD,
-      port: DB_PORT,
-      database: DB_NAME,
-    })
-    .catch((error) => {
-      console.log(`Faild to Connect to DATABASE`);
-    });
+export const sequelize = new Sequelize(DB_NAME, DB_USER, DB_PASSWORD, {
+  host: DB_HOST,
+  port: DB_PORT,
+  dialect: "mysql",
+});
+
+export const authenticateDB = async () => {
+  try {
+    await sequelize.authenticate();
+    await sequelize.sync({ alter: true, force: false});
+    console.log(`Connection to database is successful`);
+  } catch (error) {
+    console.error(`Unable to connect to database`, error);
+  }
 };
