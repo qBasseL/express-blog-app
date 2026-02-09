@@ -4,12 +4,12 @@ const router = Router();
 
 router.post("/sign-up", async (req, res, next) => {
   const result = await signup(req.body);
-  return res.status(201).json({ Message: "Done Signup", data: result });
+  return res.status(201).json({ Message: "Done Signup", result });
 });
 
-router.post("/login", (req, res, next) => {
-  const result = login(req.body);
-  return res.status(200).json({ Message: "Done Login", data: result });
+router.post("/login", async (req, res, next) => {
+  const result = await login(req.body);
+  return res.status(200).json({ Message: "Done Login", result });
 });
 
 export default router;
