@@ -1,10 +1,15 @@
+import { BlogModel } from "../../DB/models/blog.model.js";
 import { UserModel } from "../../DB/models/user.model.js";
 import { Op } from "sequelize";
 
 export const profile = async (id) => {
   // const user = await UserModel.findByPk(id)
 
-  const user = await UserModel.findAll();
+  const user = await UserModel.findAll({
+    include: [
+        {model: BlogModel}
+    ]
+  });
   return user;
 };
 
